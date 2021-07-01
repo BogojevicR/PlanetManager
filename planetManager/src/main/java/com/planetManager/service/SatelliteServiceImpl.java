@@ -32,14 +32,14 @@ public class SatelliteServiceImpl implements SatelliteService {
 
                     return satelliteRepository.save(satellite);
                 })
-                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, Satellite.class.getSimpleName()));
     }
 
 
     @Override
     public Satellite getSatelliteById(Long id) {
         return satelliteRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, Satellite.class.getSimpleName()));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class SatelliteServiceImpl implements SatelliteService {
         try {
             satelliteRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new EntityNotFoundCustomException(id, this.getClass().getSimpleName());
+            throw new EntityNotFoundCustomException(id, Satellite.class.getSimpleName());
         }
     }
 }

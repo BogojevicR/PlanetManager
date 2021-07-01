@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/planet")
+@RequestMapping("/api/planets")
 public class PlanetController {
 
     private PlanetService planetService;
@@ -54,7 +54,7 @@ public class PlanetController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Planet> update(@RequestBody @Valid Planet planet, @PathVariable("id") Long id) {
-        return new ResponseEntity<>(planetService.update(planet, id), HttpStatus.CREATED);
+        return new ResponseEntity<>(planetService.update(planet, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

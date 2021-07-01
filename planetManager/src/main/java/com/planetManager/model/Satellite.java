@@ -2,10 +2,9 @@ package com.planetManager.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -32,5 +31,6 @@ public class Satellite extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "planet_id", referencedColumnName = "id")
     @JsonBackReference
+    @ToString.Exclude
     private Planet planet;
 }

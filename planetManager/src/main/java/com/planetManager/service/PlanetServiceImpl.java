@@ -30,7 +30,7 @@ public class PlanetServiceImpl implements PlanetService {
     @Override
     public Planet getPlanetById(Long id) {
         return planetRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, Planet.class.getSimpleName()));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class PlanetServiceImpl implements PlanetService {
 
                     return planetRepository.save(planet);
                 })
-                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, Planet.class.getSimpleName()));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class PlanetServiceImpl implements PlanetService {
         try {
             planetRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new EntityNotFoundCustomException(id, this.getClass().getSimpleName());
+            throw new EntityNotFoundCustomException(id, Planet.class.getSimpleName());
         }
     }
 
@@ -77,7 +77,7 @@ public class PlanetServiceImpl implements PlanetService {
         if (planet.isPresent()) {
             return planet.get().getSatellites();
         } else {
-            throw new EntityNotFoundCustomException(id, this.getClass().getSimpleName());
+            throw new EntityNotFoundCustomException(id, Planet.class.getSimpleName());
         }
     }
 }
