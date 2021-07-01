@@ -26,6 +26,11 @@ public class PlanetController {
         return new ResponseEntity<>(planetService.save(planet), HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Planet> getPlanetById(@PathVariable Long id) {
+        return new ResponseEntity<>(planetService.getPlanetById(id), HttpStatus.OK);
+    }
+
     @GetMapping()
     public ResponseEntity<Page<Planet>> getAllPlanetsByPlanetName(
             @RequestParam(required = false) String name,
@@ -37,7 +42,7 @@ public class PlanetController {
         return new ResponseEntity<>(allPlanetsByPlanetName, HttpStatus.OK);
     }
 
-    @GetMapping("/byNumberOfSatellites")
+    @GetMapping("/bySatelliteNumber")
     public ResponseEntity<Page<Planet>> getAllPlanetsByNumberOfSatellites(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size
@@ -48,18 +53,18 @@ public class PlanetController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Planet> update(@RequestBody @Valid Planet planet, @PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Planet> update(@RequestBody @Valid Planet planet, @PathVariable("id") Long id) {
         return new ResponseEntity<>(planetService.update(planet, id), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Planet> delete(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Planet> delete(@PathVariable Long id) {
         planetService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}/satellites")
-    public ResponseEntity<List<Satellite>> getListOfPlanetSatellites(@PathVariable Long id) throws Exception {
+    public ResponseEntity<List<Satellite>> getListOfPlanetSatellites(@PathVariable Long id) {
         return new ResponseEntity<>(planetService.getListOfPlanetSatellites(id), HttpStatus.OK);
     }
 }

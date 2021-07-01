@@ -8,10 +8,10 @@ public interface SatelliteService {
 
     Satellite save(Satellite satellite);
 
-    Satellite update(Satellite updateSatellite, Long id) throws Exception;
+    Satellite update(Satellite updateSatellite, Long id);
 
-    Satellite getSatelliteById(Long id) throws Exception;
+    Satellite getSatelliteById(Long id);
 
-    void delete(Long id) throws Exception;
+    void delete(Long id);
 
 }

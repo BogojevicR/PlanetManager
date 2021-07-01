@@ -1,5 +1,6 @@
 package com.planetManager.service;
 
+import com.planetManager.controller.exception.EntityNotFoundCustomException;
 import com.planetManager.model.Planet;
 import com.planetManager.model.Satellite;
 import com.planetManager.repository.PlanetRepository;
@@ -27,9 +28,9 @@ public class PlanetServiceImpl implements PlanetService {
     }
 
     @Override
-    public Planet getPlanetById(Long id) throws Exception {
+    public Planet getPlanetById(Long id) {
         return planetRepository.findById(id)
-                .orElseThrow(() -> new Exception("NOT FOUND"));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class PlanetServiceImpl implements PlanetService {
     }
 
     @Override
-    public Planet update(Planet updatedPlanet, Long id) throws Exception {
+    public Planet update(Planet updatedPlanet, Long id) {
         return planetRepository.findById(id)
                 .map(planet -> {
                     planet.setName(updatedPlanet.getName());
@@ -58,25 +59,25 @@ public class PlanetServiceImpl implements PlanetService {
 
                     return planetRepository.save(planet);
                 })
-                .orElseThrow(() -> new Exception("NOT FOUND"));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Long id) {
         try {
             planetRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new Exception("NOT FOUND");
+            throw new EntityNotFoundCustomException(id, this.getClass().getSimpleName());
         }
     }
 
     @Override
-    public List<Satellite> getListOfPlanetSatellites(Long id) throws Exception {
+    public List<Satellite> getListOfPlanetSatellites(Long id) {
         Optional<Planet> planet = planetRepository.findById(id);
         if (planet.isPresent()) {
             return planet.get().getSatellites();
         } else {
-            throw new Exception("NOT FOUND");
+            throw new EntityNotFoundCustomException(id, this.getClass().getSimpleName());
         }
     }
 }

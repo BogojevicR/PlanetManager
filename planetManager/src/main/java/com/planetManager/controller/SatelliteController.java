@@ -24,17 +24,17 @@ public class SatelliteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Satellite> update(@RequestBody @Valid Satellite satellite, @PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Satellite> update(@RequestBody @Valid Satellite satellite, @PathVariable("id") Long id) {
         return new ResponseEntity<>(satelliteService.update(satellite, id), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Satellite> getSatelliteById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Satellite> getSatelliteById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(satelliteService.getSatelliteById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Satellite> deleteSatelliteById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Satellite> deleteSatelliteById(@PathVariable("id") Long id) {
         satelliteService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

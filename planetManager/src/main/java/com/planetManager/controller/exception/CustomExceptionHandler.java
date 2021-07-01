@@ -14,8 +14,7 @@ import java.util.List;
 public class CustomExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorModel> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorModel> handleValidationExceptions(MethodArgumentNotValidException ex) {
         ErrorModel responseError = new ErrorModel(HttpStatus.BAD_REQUEST);
 
         List<String> errors = new ArrayList<>();
@@ -27,5 +26,14 @@ public class CustomExceptionHandler {
         responseError.setErrors(errors);
 
         return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundCustomException.class)
+    public ResponseEntity<ErrorModel> handleEntityNotFoundCustomException(EntityNotFoundCustomException ex) {
+        ErrorModel responseError = new ErrorModel(HttpStatus.NOT_FOUND);
+
+        responseError.setErrors(List.of(ex.getMessage()));
+
+        return new ResponseEntity<>(responseError, HttpStatus.NOT_FOUND);
     }
 }

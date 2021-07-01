@@ -1,11 +1,10 @@
 package com.planetManager.service;
 
+import com.planetManager.controller.exception.EntityNotFoundCustomException;
 import com.planetManager.model.Satellite;
 import com.planetManager.repository.SatelliteRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class SatelliteServiceImpl implements SatelliteService {
@@ -22,7 +21,7 @@ public class SatelliteServiceImpl implements SatelliteService {
     }
 
     @Override
-    public Satellite update(Satellite updateSatellite, Long id) throws Exception {
+    public Satellite update(Satellite updateSatellite, Long id) {
         return satelliteRepository.findById(id)
                 .map(satellite -> {
                     satellite.setName(updateSatellite.getName());
@@ -33,22 +32,22 @@ public class SatelliteServiceImpl implements SatelliteService {
 
                     return satelliteRepository.save(satellite);
                 })
-                .orElseThrow(() -> new Exception("NOT FOUND"));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
     }
 
 
     @Override
-    public Satellite getSatelliteById(Long id) throws Exception {
+    public Satellite getSatelliteById(Long id) {
         return satelliteRepository.findById(id)
-                .orElseThrow(() -> new Exception("NOT FOUND"));
+                .orElseThrow(() -> new EntityNotFoundCustomException(id, this.getClass().getSimpleName()));
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Long id) {
         try {
             satelliteRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new Exception("NOT FOUND");
+            throw new EntityNotFoundCustomException(id, this.getClass().getSimpleName());
         }
     }
 }

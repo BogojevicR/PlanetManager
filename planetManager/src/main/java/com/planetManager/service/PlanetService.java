@@ -12,15 +12,15 @@ public interface PlanetService {
 
     Planet save(Planet planet);
 
-    Planet getPlanetById(Long id) throws Exception;
+    Planet getPlanetById(Long id);
 
     Page<Planet> getAllPlanetsByPlanetName(String name, int page, int size);
 
     Page<Planet> getAllPlanetsByNumberOfSatellites(int page, int size);
 
-    Planet update(Planet planet, Long Id) throws Exception;
+    Planet update(Planet planet, Long Id);
 
-    void delete(Long id) throws Exception;
+    void delete(Long id);
 
-    List<Satellite> getListOfPlanetSatellites(Long id) throws Exception;
+    List<Satellite> getListOfPlanetSatellites(Long id);
 }
